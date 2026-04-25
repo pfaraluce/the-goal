@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENAIRE · Entrenamiento de Competencias</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #4f6ef7;
+    --accent-dim: rgba(79,110,247,0.12);
+    --green: #3dd68c;
+    --green-dim: rgba(61,214,140,0.12);
+    --amber: #f0a500;
+    --amber-dim: rgba(240,165,0,0.12);
+    --red: #f05252;
+    --red-dim: rgba(240,82,82,0.12);
+    --text: #e8e8f0;
+    --text-dim: #6b6b80;
+    --text-muted: #3a3a50;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(79,110,247,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,110,247,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding-top: 1rem;
+  }
+
+  .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+  }
+
+  header h1 {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeUp 0.3s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .start-title {
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .start-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .start-sub {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+  }
+
+  .mode-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .mode-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+  }
+
+  .mode-card:hover { border-color: var(--accent); background: var(--accent-dim); }
+  .mode-card.selected { border-color: var(--accent); background: var(--accent-dim); }
+
+  .mode-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .mode-label { font-size: 0.85rem; color: var(--text-dim); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary { background: var(--accent); color: white; width: 100%; justify-content: center; }
+  .btn-primary:hover { background: #3d5ce6; transform: translateY(-1px); }
+
+  .btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 99px;
+    height: 2px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .q-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .q-skip {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: color 0.2s;
+  }
+  .q-skip:hover { color: var(--text-dim); }
+
+  .question-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .question-box::before {
+    content: '"';
+    position: absolute;
+    top: -0.5rem;
+    left: 1.2rem;
+    font-size: 6rem;
+    color: var(--accent);
+    opacity: 0.06;
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .question-text {
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text);
+    position: relative;
+  }
+
+  .step-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .step-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .option-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    transform: translateX(3px);
+  }
+
+  .option-btn.correct { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+  .option-btn.wrong { border-color: var(--red); background: var(--red-dim); color: var(--red); }
+  .option-btn:disabled { cursor: default; }
+
+  .option-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .option-btn.correct .option-dot,
+  .option-btn.wrong .option-dot { background: currentColor; opacity: 1; }
+
+  .feedback {
+    display: none;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .feedback.show { display: block; animation: fadeUp 0.2s ease; }
+  .feedback.perfect { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
+  .feedback.partial { background: var(--amber-dim); border: 1px solid var(--amber); color: var(--amber); }
+  .feedback.miss { background: var(--red-dim); border: 1px solid var(--red); color: var(--red); }
+  .feedback strong { font-weight: 500; }
+
+  .results-title {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+
+  .results-sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 2.5rem; }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .score-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .score-card.s3 { border-color: var(--green); background: var(--green-dim); }
+  .score-card.s2 { border-color: var(--amber); background: var(--amber-dim); }
+  .score-card.s1 { border-color: var(--red); background: var(--red-dim); }
+
+  .score-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .score-card.s3 .score-num { color: var(--green); }
+  .score-card.s2 .score-num { color: var(--amber); }
+  .score-card.s1 .score-num { color: var(--red); }
+
+  .score-label { font-size: 0.75rem; color: var(--text-dim); font-family: 'DM Mono', monospace; letter-spacing: 0.08em; }
+
+  .results-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+
+  .result-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .result-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .badge-3 { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .badge-2 { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
+  .badge-1 { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+
+  .result-q { color: var(--text-dim); line-height: 1.4; flex: 1; }
+  .result-q strong { color: var(--text); font-weight: 400; display: block; margin-bottom: 0.2rem; font-size: 0.8rem; }
+
+  .btn-row { display: flex; gap: 0.75rem; }
+  .btn-row .btn { flex: 1; justify-content: center; }
+
+  .mode-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="logo">ENAIRE</span>
+    <h1>Entrenamiento · Fase 3</h1>
+  </header>
+
+  <!-- START -->
+  <div class="screen active" id="screen-start">
+    <div class="start-title">Relaciona la pregunta<br>con tu <em>historia</em>.</div>
+    <p class="start-sub">Cada pregunta evalúa una competencia y tiene una historia preparada. Entrena la asociación rápida antes del jueves.</p>
+    <p class="mode-hint">NÚMERO DE PREGUNTAS</p>
+    <div class="mode-cards">
+      <div class="mode-card selected" onclick="selectMode(10, this)">
+        <div class="mode-num">10</div>
+        <div class="mode-label">Sesión rápida</div>
+      </div>
+      <div class="mode-card" onclick="selectMode(28, this)">
+        <div class="mode-num">28</div>
+        <div class="mode-label">Todas las preguntas</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="startQuiz()">Comenzar →</button>
+  </div>
+
+  <!-- QUESTION -->
+  <div class="screen" id="screen-question">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+    <div class="q-meta">
+      <span class="q-counter" id="q-counter">01 / 10</span>
+      <button class="q-skip" onclick="nextQuestion()">Saltar →</button>
+    </div>
+    <div class="question-box">
+      <p class="question-text" id="question-text"></p>
+    </div>
+
+    <div id="step-competencia">
+      <div class="step-label">1 · Identifica la competencia</div>
+      <div class="options-grid" id="competencia-options"></div>
+    </div>
+
+    <div id="step-historia" style="display:none">
+      <div class="step-label">2 · ¿Qué historia usarías?</div>
+      <div class="options-grid" id="historia-options"></div>
+    </div>
+
+    <div id="step-next" style="display:none">
+      <div class="feedback" id="feedback"></div>
+      <button class="btn btn-primary" onclick="nextQuestion()">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="screen" id="screen-results">
+    <div class="results-title">Resultados</div>
+    <p class="results-sub" id="results-sub"></p>
+    <div class="score-row">
+      <div class="score-card s3">
+        <div class="score-num" id="count-3">0</div>
+        <div class="score-label">3/3</div>
+      </div>
+      <div class="score-card s2">
+        <div class="score-num" id="count-2">0</div>
+        <div class="score-label">2/3</div>
+      </div>
+      <div class="score-card s1">
+        <div class="score-num" id="count-1">0</div>
+        <div class="score-label">1/3 o menos</div>
+      </div>
+    </div>
+    <div class="results-list" id="results-list"></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="showScreen('screen-start')">Inicio</button>
+      <button class="btn btn-primary" onclick="startQuiz()">Repetir →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const COMPETENCIAS = [
+  "Toma de decisiones",
+  "Resiliencia",
+  "Gestión del estrés",
+  "Flexibilidad y adaptación al cambio",
+  "Compromiso organizacional",
+  "Orientación a resultados",
+  "Trabajo en equipo"
+];
+
+const HISTORIAS = [
+  "Tour en la India",
+  "Tamara y el departamento de cabina",
+  "Sobrecarga en Hadock",
+  "Campamento en el Pirineo",
+  "Tres meses sin cobrar en NEAT",
+  "Crecimiento orgánico en NEAT",
+  "Compra de GTA por Indra"
+];
+
+const PREGUNTAS = [
+  { text: "Cuéntame una situación en la que hayas tenido que tomar una decisión importante sin contar con toda la información que hubieras querido.", comp: 0, hist: 0 },
+  { text: "¿Recuerdas algún momento en que hayas tenido que actuar rápido sin poder consultar con otros?", comp: 0, hist: 0 },
+  { text: "¿Alguna vez has tomado una decisión arriesgada en el trabajo? ¿Qué pasó?", comp: 0, hist: 0 },
+  { text: "Cuéntame una situación en la que hayas tenido que priorizar entre varias opciones bajo presión de tiempo.", comp: 0, hist: 0 },
+  { text: "Cuéntame una situación en la que hayas tenido que sobreponerte a algo que te afectó personalmente en el trabajo.", comp: 1, hist: 1 },
+  { text: "¿Recuerdas algún momento en que un proyecto o situación parecía perdido y conseguiste darle la vuelta?", comp: 1, hist: 1 },
+  { text: "¿Ha habido alguna vez en que las circunstancias externas amenazaran algo que te importaba y tuvieras que actuar?", comp: 1, hist: 1 },
+  { text: "Cuéntame una situación en la que hayas tenido que mantener el rendimiento a pesar de una adversidad.", comp: 1, hist: 1 },
+  { text: "Cuéntame una época en la que hayas trabajado bajo una presión sostenida durante un período largo de tiempo.", comp: 2, hist: 2 },
+  { text: "¿Cómo gestionas los momentos en que tienes más trabajo del que puedes asumir?", comp: 2, hist: 2 },
+  { text: "¿Recuerdas alguna situación en la que el entorno laboral fuera especialmente exigente? ¿Cómo lo manejaste?", comp: 2, hist: 2 },
+  { text: "Cuéntame una situación en la que hayas sentido que estabas al límite y qué hiciste.", comp: 2, hist: 2 },
+  { text: "Cuéntame una situación en la que un cambio inesperado haya trastocado un plan en el que estabas trabajando.", comp: 3, hist: 3 },
+  { text: "¿Recuerdas algún momento en que hayas tenido que adaptarte rápidamente a una situación que no esperabas?", comp: 3, hist: 3 },
+  { text: "¿Alguna vez has tenido que cambiar completamente de enfoque en mitad de un proyecto?", comp: 3, hist: 3 },
+  { text: "Cuéntame una situación en la que algo externo haya cambiado las reglas del juego y hayas tenido que reaccionar.", comp: 3, hist: 3 },
+  { text: "Cuéntame una situación en la que hayas antepuesto el bien de la organización o de otros al tuyo propio.", comp: 4, hist: 4 },
+  { text: "¿Recuerdas algún momento en que hayas tenido que demostrar tu compromiso con una organización en circunstancias difíciles?", comp: 4, hist: 4 },
+  { text: "¿Ha habido alguna vez en que seguir adelante con algo te haya supuesto un coste personal importante?", comp: 4, hist: 4 },
+  { text: "Cuéntame una situación en la que tus valores personales y los de la organización hayan estado alineados en un momento crítico.", comp: 4, hist: 4 },
+  { text: "Cuéntame una situación en la que hayas conseguido un resultado concreto y medible gracias a tu iniciativa.", comp: 5, hist: 5 },
+  { text: "¿Recuerdas algún momento en que hayas identificado una oportunidad de mejora y la hayas llevado a cabo?", comp: 5, hist: 5 },
+  { text: "¿Alguna vez has conseguido un objetivo con menos recursos de los que tenías inicialmente?", comp: 5, hist: 5 },
+  { text: "Cuéntame una situación en la que hayas mejorado un proceso o resultado de manera significativa.", comp: 5, hist: 5 },
+  { text: "Cuéntame una situación en la que hayas trabajado en equipo bajo presión para conseguir un objetivo común.", comp: 6, hist: 6 },
+  { text: "¿Recuerdas algún momento en que tu aportación haya sido clave para que el equipo funcionara mejor?", comp: 6, hist: 6 },
+  { text: "¿Alguna vez has tenido que coordinar a varias personas con roles distintos para resolver un problema urgente?", comp: 6, hist: 6 },
+  { text: "Cuéntame una situación en la que hayas organizado o estructurado el trabajo de un equipo en una situación de crisis.", comp: 6, hist: 6 }
+];
+
+let mode = 10;
+let queue = [];
+let current = 0;
+let results = [];
+let compAnswered = false;
+let histAnswered = false;
+
+function selectMode(m, el) {
+  mode = m;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  const shuffled = shuffle(PREGUNTAS);
+  queue = mode === 28 ? shuffled : shuffled.slice(0, 10);
+  current = 0;
+  results = [];
+  showQuestion();
+  showScreen('screen-question');
+}
+
+function showQuestion() {
+  compAnswered = false;
+  histAnswered = false;
+
+  const q = queue[current];
+  const total = queue.length;
+
+  document.getElementById('q-counter').textContent =
+    String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  document.getElementById('progress-bar').style.width = ((current / total) * 100) + '%';
+  document.getElementById('question-text').textContent = q.text;
+
+  document.getElementById('step-historia').style.display = 'none';
+  document.getElementById('step-next').style.display = 'none';
+  document.getElementById('step-competencia').style.display = 'block';
+
+  const feedback = document.getElementById('feedback');
+  feedback.className = 'feedback';
+  feedback.textContent = '';
+
+  // Competencia options
+  const compGrid = document.getElementById('competencia-options');
+  compGrid.innerHTML = '';
+  shuffle([0,1,2,3,4,5,6]).forEach(idx => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-dot"></span>${COMPETENCIAS[idx]}`;
+    btn.dataset.idx = idx;
+    btn.onclick = () => handleComp(idx, btn, q);
+    compGrid.appendChild(btn);
+  });
+
+  // Historia options
+  const histGrid = document.getElementById('historia-options');
+  histGrid.innerHTML = '';
+  shuffle([0,1,2,3,4,5,6]).forEach(idx => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="option-dot"></span>${HISTORIAS[idx]}`;
+    btn.dataset.idx = idx;
+    btn.onclick = () => handleHist(idx, btn, q);
+    histGrid.appendChild(btn);
+  });
+}
+
+function handleComp(idx, btn, q) {
+  if (compAnswered) return;
+  compAnswered = true;
+
+  document.querySelectorAll('#competencia-options .option-btn').forEach(b => {
+    b.disabled = true;
+    if (parseInt(b.dataset.idx) === q.comp) b.classList.add('correct');
+    else if (b === btn) b.classList.add('wrong');
+  });
+
+  document.getElementById('step-historia').style.display = 'block';
+  document.getElementById('step-historia').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function handleHist(idx, btn, q) {
+  if (histAnswered) return;
+  histAnswered = true;
+
+  document.querySelectorAll('#historia-options .option-btn').forEach(b => {
+    b.disabled = true;
+    if (parseInt(b.dataset.idx) === q.hist) b.classList.add('correct');
+    else if (b === btn) b.classList.add('wrong');
+  });
+
+  const compOk = document.querySelector('#competencia-options .option-btn.correct') !== null &&
+    !document.querySelector(`#competencia-options .option-btn.wrong`);
+
+  // Re-check: was the correct comp button the one clicked?
+  const compBtns = document.querySelectorAll('#competencia-options .option-btn');
+  let userCompIdx = -1;
+  compBtns.forEach(b => {
+    if (b.classList.contains('wrong')) userCompIdx = parseInt(b.dataset.idx);
+    if (b.classList.contains('correct') && !b.disabled) userCompIdx = parseInt(b.dataset.idx);
+  });
+
+  // Simpler: count correct classes vs wrong
+  const compCorrect = document.querySelector('#competencia-options .option-btn.wrong') === null;
+  const histCorrect = idx === q.hist;
+
+  const pts = (compCorrect ? 1 : 0) + (histCorrect ? 1 : 0);
+  const score = pts === 2 ? 3 : pts === 1 ? 2 : 1;
+
+  results.push({ q, compCorrect, histCorrect, score });
+
+  const feedback = document.getElementById('feedback');
+  if (score === 3) {
+    feedback.className = 'feedback perfect show';
+    feedback.innerHTML = '<strong>3/3 · Perfecto.</strong> Competencia e historia correctas.';
+  } else if (score === 2) {
+    feedback.className = 'feedback partial show';
+    const msg = compCorrect
+      ? `La historia correcta era <strong>${HISTORIAS[q.hist]}</strong>.`
+      : `La competencia correcta era <strong>${COMPETENCIAS[q.comp]}</strong>.`;
+    feedback.innerHTML = `<strong>2/3 · Casi.</strong> ${msg}`;
+  } else {
+    feedback.className = 'feedback miss show';
+    feedback.innerHTML = `<strong>1/3 · A repasar.</strong> Competencia: <strong>${COMPETENCIAS[q.comp]}</strong> · Historia: <strong>${HISTORIAS[q.hist]}</strong>.`;
+  }
+
+  document.getElementById('step-next').style.display = 'block';
+  document.getElementById('step-next').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function nextQuestion() {
+  if (!histAnswered) {
+    results.push({ q: queue[current], compCorrect: false, histCorrect: false, score: 1, skipped: true });
+  }
+  current++;
+  if (current >= queue.length) {
+    showResults();
+  } else {
+    showQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showResults() {
+  const count3 = results.filter(r => r.score === 3).length;
+  const count2 = results.filter(r => r.score === 2).length;
+  const count1 = results.filter(r => r.score <= 1).length;
+
+  document.getElementById('count-3').textContent = count3;
+  document.getElementById('count-2').textContent = count2;
+  document.getElementById('count-1').textContent = count1;
+  document.getElementById('results-sub').textContent =
+    `${results.length} preguntas · ${count3} perfectas · ${count2} casi · ${count1} a repasar`;
+
+  const list = document.getElementById('results-list');
+  list.innerHTML = '';
+  results.forEach(r => {
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    const badge = document.createElement('span');
+    badge.className = `result-badge badge-${r.score}`;
+    badge.textContent = r.score + '/3';
+    const info = document.createElement('div');
+    info.className = 'result-q';
+    info.innerHTML = `<strong>${COMPETENCIAS[r.q.comp]} · ${HISTORIAS[r.q.hist]}</strong>${r.q.text}`;
+    item.appendChild(badge);
+    item.appendChild(info);
+    list.appendChild(item);
+  });
+
+  document.getElementById('progress-bar').style.width = '100%';
+  showScreen('screen-results');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
