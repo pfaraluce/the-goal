@@ -17,8 +17,6 @@
   --accent-dim: rgba(79,110,247,0.12);
   --green: #3dd68c;
   --green-dim: rgba(61,214,140,0.10);
-  --amber: #f0a500;
-  --amber-dim: rgba(240,165,0,0.10);
   --red: #f05252;
   --red-dim: rgba(240,82,82,0.10);
   --text: #e8e8f0;
@@ -37,72 +35,49 @@ body {
 
 body::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background-image: linear-gradient(rgba(79,110,247,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(79,110,247,0.025) 1px, transparent 1px);
   background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
+  pointer-events: none; z-index: 0;
 }
 
-/* ── NAV ── */
 nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   background: rgba(10,10,15,0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 0;
-  padding: 0 1.5rem;
-  height: 52px;
+  display: flex; align-items: center;
+  padding: 0 1.5rem; height: 52px;
 }
 
 .nav-logo {
   font-family: 'DM Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--accent);
+  font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.2em; color: var(--accent);
   border: 1px solid var(--accent);
-  padding: 0.25rem 0.5rem;
-  border-radius: 3px;
-  margin-right: 1.5rem;
-  flex-shrink: 0;
+  padding: 0.25rem 0.5rem; border-radius: 3px;
+  margin-right: 1.5rem; flex-shrink: 0;
 }
 
 .nav-tabs {
-  display: flex;
-  gap: 0;
-  height: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
+  display: flex; height: 100%;
+  overflow-x: auto; scrollbar-width: none;
 }
 .nav-tabs::-webkit-scrollbar { display: none; }
 
 .nav-tab {
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  cursor: pointer;
+  display: flex; align-items: center;
+  padding: 0 1rem; font-size: 0.8rem;
+  color: var(--text-muted); cursor: pointer;
   border-bottom: 2px solid transparent;
-  white-space: nowrap;
-  transition: all 0.15s;
-  background: none;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  font-family: 'DM Sans', sans-serif;
-  height: 100%;
+  white-space: nowrap; transition: all 0.15s;
+  background: none; border-top: none;
+  border-left: none; border-right: none;
+  font-family: 'DM Sans', sans-serif; height: 100%;
 }
 .nav-tab:hover { color: var(--text-dim); }
 .nav-tab.active { color: var(--text); border-bottom-color: var(--accent); }
 
-/* ── LAYOUT ── */
 .page { display: none; padding: 2rem 1rem 4rem; max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
 .page.active { display: block; animation: fadeUp 0.25s ease; }
 
@@ -111,124 +86,68 @@ nav {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── SHARED COMPONENTS ── */
-.section-title {
-  font-size: 1.6rem;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.35rem;
-}
-.section-sub { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.5; }
+.section-title { font-size: 1.6rem; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 0.35rem; }
+.section-sub { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 2rem; line-height: 1.6; }
 
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1rem;
 }
-
 .card-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
+  font-family: 'DM Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.5rem;
 }
+.card-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.6rem; }
+.card-body { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; }
 
-.card-title {
-  font-size: 0.95rem;
-  font-weight: 500;
-  margin-bottom: 0.6rem;
+.star-row {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0.5rem; margin-top: 1rem;
 }
-
-.card-body {
-  font-size: 0.88rem;
-  color: var(--text-dim);
-  line-height: 1.7;
+.star-cell {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 0.75rem;
 }
+.star-letter {
+  font-family: 'DM Mono', monospace; font-size: 1.1rem;
+  font-weight: 500; color: var(--accent); margin-bottom: 0.25rem;
+}
+.star-name { font-size: 0.75rem; font-weight: 500; margin-bottom: 0.25rem; }
+.star-desc { font-size: 0.72rem; color: var(--text-dim); line-height: 1.5; }
 
 .qa-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-bottom: 0.75rem;
-  overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 0.75rem; overflow: hidden;
 }
-
 .qa-q {
-  padding: 1rem 1.25rem;
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--text-dim);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  user-select: none;
+  padding: 1rem 1.25rem; font-size: 0.88rem; font-weight: 500;
+  color: var(--text-dim); cursor: pointer;
+  display: flex; justify-content: space-between;
+  align-items: flex-start; gap: 1rem; user-select: none;
   transition: color 0.15s;
 }
 .qa-q:hover { color: var(--text); }
 .qa-q.open { color: var(--text); border-bottom: 1px solid var(--border); }
-
 .qa-chevron { flex-shrink: 0; transition: transform 0.2s; color: var(--text-muted); margin-top: 1px; }
 .qa-q.open .qa-chevron { transform: rotate(180deg); }
-
 .qa-a {
-  display: none;
-  padding: 1rem 1.25rem;
-  font-size: 0.88rem;
-  color: var(--text-dim);
-  line-height: 1.7;
+  display: none; padding: 1rem 1.25rem;
+  font-size: 0.85rem; color: var(--text-muted);
+  line-height: 1.7; font-style: italic;
 }
 .qa-a.open { display: block; animation: fadeUp 0.15s ease; }
 
-.chip {
-  display: inline-block;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  padding: 0.2rem 0.55rem;
-  border-radius: 99px;
-  border: 1px solid var(--border2);
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
-}
-
 .divider { height: 1px; background: var(--border); margin: 2rem 0; }
 
-/* ── MAP TABLE ── */
-.map-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.map-table th {
-  background: var(--accent);
-  color: white;
-  padding: 0.7rem 1rem;
-  text-align: left;
-  font-weight: 500;
-  font-size: 0.8rem;
-}
-.map-table th:first-child { border-radius: 8px 0 0 0; }
-.map-table th:last-child { border-radius: 0 8px 0 0; }
-.map-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-dim); }
-.map-table tr:last-child td { border-bottom: none; }
-.map-table tr:nth-child(even) td { background: var(--surface2); }
-.map-table td:first-child { color: var(--text); font-weight: 400; }
-.map-table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; }
-
-/* ── QUIZ ── */
+/* QUIZ */
 .quiz-start-title { font-size: 2rem; font-weight: 300; line-height: 1.2; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
 .quiz-start-title em { font-style: italic; color: var(--accent); }
 
 .mode-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
 .mode-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.4rem;
-  cursor: pointer;
-  transition: all 0.15s;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.4rem; cursor: pointer; transition: all 0.15s;
 }
 .mode-card:hover { border-color: var(--accent); background: var(--accent-dim); }
 .mode-card.selected { border-color: var(--accent); background: var(--accent-dim); }
@@ -255,17 +174,12 @@ nav {
 .q-skip:hover { color: var(--text-dim); }
 
 .question-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.75rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.75rem; margin-bottom: 1.5rem;
+  position: relative; overflow: hidden;
 }
 .question-box::before {
-  content: '"';
-  position: absolute; top: -0.5rem; left: 1.2rem;
+  content: '"'; position: absolute; top: -0.5rem; left: 1.2rem;
   font-size: 5rem; color: var(--accent); opacity: 0.06;
   font-family: Georgia, serif; line-height: 1; pointer-events: none;
 }
@@ -281,24 +195,18 @@ nav {
 .options-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
 
 .option-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.8rem 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
   text-align: left; cursor: pointer;
   font-family: 'DM Sans', sans-serif;
   font-size: 0.88rem; color: var(--text);
   transition: all 0.15s;
-  overflow: hidden;
 }
 .option-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-dim); }
-.option-btn.correct { border-color: var(--green); background: var(--green-dim); }
-.option-btn.wrong { border-color: var(--red); background: var(--red-dim); }
+.option-btn.correct { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+.option-btn.wrong { border-color: var(--red); background: var(--red-dim); color: var(--red); }
 .option-btn:disabled { cursor: default; }
-
-.option-main {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.8rem 1rem;
-}
 
 .option-dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -307,72 +215,46 @@ nav {
 .option-btn.correct .option-dot { background: var(--green); border-color: var(--green); opacity: 1; }
 .option-btn.wrong .option-dot { background: var(--red); border-color: var(--red); opacity: 1; }
 
-.option-name { flex: 1; }
-.option-name.correct-color { color: var(--green); }
-.option-name.wrong-color { color: var(--red); }
-
-.expand-btn {
-  display: flex; align-items: center; gap: 0.4rem;
-  font-size: 0.72rem; color: var(--text-muted);
-  background: none; border: none; border-top: 1px solid var(--border);
-  padding: 0.5rem 1rem; cursor: pointer; width: 100%;
-  font-family: 'DM Sans', sans-serif; transition: color 0.15s;
-}
-.expand-btn:hover { color: var(--text-dim); }
-.expand-btn svg { transition: transform 0.2s; flex-shrink: 0; }
-.expand-btn.open svg { transform: rotate(180deg); }
-
-.story-expand {
-  display: none;
-  padding: 0.75rem 1rem 1rem;
-  font-size: 0.82rem;
-  color: var(--text-dim);
-  line-height: 1.7;
-  border-top: 1px solid var(--border);
-  background: var(--surface2);
-}
-.story-expand.open { display: block; animation: fadeUp 0.15s ease; }
-
 .feedback {
-  display: none; padding: 0.9rem 1.1rem;
-  border-radius: 10px; font-size: 0.84rem;
-  margin-bottom: 1.25rem; line-height: 1.5;
+  display: none; padding: 0.9rem 1.1rem; border-radius: 10px;
+  font-size: 0.84rem; margin-bottom: 1.25rem; line-height: 1.5;
 }
 .feedback.show { display: block; animation: fadeUp 0.2s ease; }
-.feedback.perfect { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
-.feedback.partial { background: var(--amber-dim); border: 1px solid var(--amber); color: var(--amber); }
-.feedback.miss { background: var(--red-dim); border: 1px solid var(--red); color: var(--red); }
+.feedback.correct-fb { background: var(--green-dim); border: 1px solid var(--green); color: var(--green); }
+.feedback.wrong-fb { background: var(--red-dim); border: 1px solid var(--red); color: var(--red); }
 .feedback strong { font-weight: 500; }
 
-/* ── RESULTS ── */
-.score-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-bottom: 2rem; }
+.score-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem; }
 .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem; text-align: center; }
-.score-card.s3 { border-color: var(--green); background: var(--green-dim); }
-.score-card.s2 { border-color: var(--amber); background: var(--amber-dim); }
-.score-card.s1 { border-color: var(--red); background: var(--red-dim); }
+.score-card.s-ok { border-color: var(--green); background: var(--green-dim); }
+.score-card.s-ko { border-color: var(--red); background: var(--red-dim); }
 .score-num { font-family: 'DM Mono', monospace; font-size: 2.2rem; font-weight: 300; line-height: 1; margin-bottom: 0.25rem; }
-.score-card.s3 .score-num { color: var(--green); }
-.score-card.s2 .score-num { color: var(--amber); }
-.score-card.s1 .score-num { color: var(--red); }
+.score-card.s-ok .score-num { color: var(--green); }
+.score-card.s-ko .score-num { color: var(--red); }
 .score-lbl { font-size: 0.72rem; color: var(--text-dim); font-family: 'DM Mono', monospace; letter-spacing: 0.08em; }
 
 .results-list { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.75rem; }
 .result-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1.1rem; font-size: 0.83rem; display: flex; align-items: flex-start; gap: 0.9rem; }
 .result-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500; padding: 0.18rem 0.45rem; border-radius: 4px; white-space: nowrap; margin-top: 1px; flex-shrink: 0; }
-.badge-3 { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
-.badge-2 { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber); }
-.badge-1 { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
+.badge-ok { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+.badge-ko { background: var(--red-dim); color: var(--red); border: 1px solid var(--red); }
 .result-q { color: var(--text-dim); line-height: 1.4; flex: 1; }
 .result-q strong { color: var(--text); font-weight: 400; display: block; margin-bottom: 0.2rem; font-size: 0.78rem; }
 
 .btn-row { display: flex; gap: 0.65rem; }
 .btn-row .btn { flex: 1; justify-content: center; }
-
 .mode-hint { font-size: 0.72rem; color: var(--text-muted); font-family: 'DM Mono', monospace; letter-spacing: 0.05em; margin-bottom: 0.65rem; }
 
-/* ── QUIZ SCREENS ── */
 .quiz-screen { display: none; }
 .quiz-screen.active { display: block; animation: fadeUp 0.25s ease; }
+
+.tip-box {
+  background: var(--accent-dim); border: 1px solid var(--accent);
+  border-radius: 10px; padding: 1rem 1.25rem;
+  font-size: 0.85rem; color: var(--text-dim); line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.tip-box strong { color: var(--accent); font-weight: 500; }
 </style>
 </head>
 <body>
@@ -381,22 +263,19 @@ nav {
   <span class="nav-logo">ENAIRE</span>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('pg-quiz')">Test</button>
-    <button class="nav-tab" onclick="showPage('pg-historias')">Historias</button>
+    <button class="nav-tab" onclick="showPage('pg-competencias')">Competencias</button>
     <button class="nav-tab" onclick="showPage('pg-preguntas')">Preguntas</button>
     <button class="nav-tab" onclick="showPage('pg-tecnica')">Entrevista técnica</button>
-    <button class="nav-tab" onclick="showPage('pg-dinamica')">Dinámica</button>
-    <button class="nav-tab" onclick="showPage('pg-mapa')">Mapa</button>
   </div>
 </nav>
 
 <!-- ══════════════════════════════════════════════ QUIZ ══ -->
 <div class="page active" id="pg-quiz">
 
-  <!-- START -->
   <div class="quiz-screen active" id="qs-start">
     <p class="mode-hint" style="margin-top:0.5rem">FASE 3 · ENTRENAMIENTO</p>
-    <div class="quiz-start-title">Relaciona la pregunta<br>con tu <em>historia</em>.</div>
-    <p class="section-sub">Entrena la asociación rápida entre pregunta, competencia e historia antes del jueves.</p>
+    <div class="quiz-start-title">Identifica la <em>competencia</em>.</div>
+    <p class="section-sub">Para cada pregunta, identifica qué competencia está evaluando. Entrena el reconocimiento rápido antes del examen.</p>
     <p class="mode-hint">NÚMERO DE PREGUNTAS</p>
     <div class="mode-cards">
       <div class="mode-card selected" onclick="selectMode(10,this)">
@@ -411,7 +290,6 @@ nav {
     <button class="btn btn-primary" onclick="startQuiz()">Comenzar →</button>
   </div>
 
-  <!-- QUESTION -->
   <div class="quiz-screen" id="qs-question">
     <div class="progress-wrap"><div class="progress-fill" id="q-progress"></div></div>
     <div class="q-meta">
@@ -421,28 +299,20 @@ nav {
     <div class="question-box">
       <p class="question-text" id="q-text"></p>
     </div>
-    <div id="step-hist">
-      <div class="step-label">1 · ¿Qué historia usarías?</div>
-      <div class="options-grid" id="hist-options"></div>
-    </div>
-    <div id="step-comp" style="display:none">
-      <div class="step-label">2 · Identifica la competencia</div>
-      <div class="options-grid" id="comp-options"></div>
-    </div>
+    <div class="step-label">Identifica la competencia</div>
+    <div class="options-grid" id="comp-options"></div>
     <div id="step-next" style="display:none">
       <div class="feedback" id="q-feedback"></div>
       <button class="btn btn-primary" onclick="nextQuestion()">Siguiente →</button>
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div class="quiz-screen" id="qs-results">
     <div class="section-title">Resultados</div>
     <p class="section-sub" id="res-sub"></p>
     <div class="score-row">
-      <div class="score-card s3"><div class="score-num" id="cnt3">0</div><div class="score-lbl">3/3</div></div>
-      <div class="score-card s2"><div class="score-num" id="cnt2">0</div><div class="score-lbl">2/3</div></div>
-      <div class="score-card s1"><div class="score-num" id="cnt1">0</div><div class="score-lbl">1/3 o menos</div></div>
+      <div class="score-card s-ok"><div class="score-num" id="cnt-ok">0</div><div class="score-lbl">Correctas</div></div>
+      <div class="score-card s-ko"><div class="score-num" id="cnt-ko">0</div><div class="score-lbl">A repasar</div></div>
     </div>
     <div class="results-list" id="res-list"></div>
     <div class="btn-row">
@@ -453,67 +323,103 @@ nav {
 
 </div>
 
-<!-- ══════════════════════════════════════════ HISTORIAS ══ -->
-<div class="page" id="pg-historias">
-  <div class="section-title">Historias STAR</div>
-  <p class="section-sub">Las siete historias preparadas para cada competencia.</p>
+<!-- ══════════════════════════════════════ COMPETENCIAS ══ -->
+<div class="page" id="pg-competencias">
+  <div class="section-title">Competencias</div>
+  <p class="section-sub">Guía para estructurar tus respuestas y orientaciones sobre qué tipo de situaciones ilustran cada competencia.</p>
+
+  <div class="card" style="border-color: var(--accent);">
+    <div class="card-label">Método</div>
+    <div class="card-title">El formato STAR</div>
+    <div class="card-body" style="margin-bottom:1rem">Toda respuesta en una entrevista por competencias debe seguir este esquema. La clave es dedicar el 70% al bloque de Acción — es lo único que puntúa. El contexto es el escenario, no el protagonista. Tú eres el protagonista.</div>
+    <div class="star-row">
+      <div class="star-cell">
+        <div class="star-letter">S</div>
+        <div class="star-name">Situación</div>
+        <div class="star-desc">Contexto en dos frases. Dónde, cuándo, qué estaba en juego.</div>
+      </div>
+      <div class="star-cell">
+        <div class="star-letter">T</div>
+        <div class="star-name">Tarea</div>
+        <div class="star-desc">Cuál era tu responsabilidad concreta en esa situación.</div>
+      </div>
+      <div class="star-cell">
+        <div class="star-letter">A</div>
+        <div class="star-name">Acción</div>
+        <div class="star-desc">Qué decidiste hacer tú. Usa "yo", no "nosotros". Esto es lo que puntúa.</div>
+      </div>
+      <div class="star-cell">
+        <div class="star-letter">R</div>
+        <div class="star-name">Resultado</div>
+        <div class="star-desc">Qué pasó. Mejor con datos concretos: números, plazos, impacto.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
 
   <div class="card">
-    <div class="card-label">Toma de decisiones</div>
-    <div class="card-title">Tour en la India</div>
-    <div class="card-body">En GTA me encargaron hacer un tour en la India para conseguir más alumnos de ese mercado. Teníamos poco tiempo para lanzarlo y sabía que si esperaba se nos escaparía la ventana, así que me adelanté a reservar unas fechas y no esperé al sí definitivo. Junto a mi compañero, lanzamos la campaña con tiempo suficiente para conseguir inscripciones y llegaron a tiempo los billetes y visados de los que iban a viajar. Fruto de ese tour salieron varios cursos con alumnos indios.</div>
+    <div class="card-label">Competencia 1 · máx. 18 puntos</div>
+    <div class="card-title">Trabajo en equipo</div>
+    <div class="card-body">Buscan ver cómo contribuyes activamente a un grupo, no solo que participas. Lo que puntúa es tu aportación concreta: ¿organizaste el trabajo? ¿diste un paso al frente? ¿facilitaste que otros funcionaran mejor?<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> momentos de crisis en los que coordinaste a varias personas con roles distintos, situaciones en las que propusiste una forma de trabajar que benefició a todo el equipo, o proyectos en los que tu aportación fue clave para el resultado colectivo.</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Resiliencia</div>
-    <div class="card-title">Tamara y el departamento de cabina</div>
-    <div class="card-body">En GTA se estaban planteando cerrar la división de entrenamiento para tripulantes de cabina de pasajeros. Eso significaba que Tamara, cerca de los cincuenta años, se quedaría sin trabajo. Yo me sentaba frente a ella y siempre la veía sonriente. Eso me afectó, así que pensamos una solución para darle la vuelta a la situación: mi compañero y yo propusimos conseguir fondos a base de alquilar la maqueta para rodajes, con lo que conseguimos una línea de negocio nueva y reinvertir el beneficio en una campaña más ambiciosa para conseguir alumnos. Nos lo aceptaron y nos dieron unos meses de prueba. A raíz de eso, se mantuvo el departamento y creció con una nueva incorporación al equipo. Conseguimos que Tamara no perdiera el trabajo.</div>
+    <div class="card-label">Competencia 2 · máx. 18 puntos</div>
+    <div class="card-title">Orientación a resultados</div>
+    <div class="card-body">Buscan evidencia de que vas más allá de cumplir — que buscas activamente mejorar, optimizar y medir. El lenguaje de esta competencia son los números: porcentajes, plazos, ahorros, crecimientos.<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> iniciativas que tomaste por cuenta propia y que tuvieron un impacto medible, momentos en que identificaste una oportunidad de mejora y la ejecutaste, o proyectos que conseguiste con menos recursos de los previstos.</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Gestión del estrés</div>
-    <div class="card-title">Sobrecarga en Hadock</div>
-    <div class="card-body">Entré en Hadock poco antes del COVID, momento que aceleró la digitalización de muchas empresas, lo que se tradujo en cada vez más clientes; y no se escaló el equipo de manera proporcionada. En los últimos meses en la empresa llevaba más clientes de los que podía gestionar en mi horario habitual, lo que me hacía alargar mi jornada entre dos y cuatro horas para poder atender mis obligaciones. Empezaba a haber cierto cansancio entre los compañeros que se traducía en quejas. Decidí transformarlo en acción y pedí ayuda a mi jefe. De esta manera, pusimos en marcha reuniones semanales del equipo para ver cómo podíamos apoyarnos en las distintas cargas y así distribuir mejor el peso. En esas reuniones se hizo evidente que estábamos todos al límite y que necesitábamos incorporar más gente de manera urgente. Finalmente dejé mi puesto tras un tiempo en el que se contrataron a tres personas y pudieron asumir la carga.</div>
+    <div class="card-label">Competencia 3 · máx. 18 puntos</div>
+    <div class="card-title">Toma de decisiones</div>
+    <div class="card-body">Buscan ver que actúas con criterio bajo incertidumbre — que no te paralizas esperando tener toda la información, y que puedes explicar tu razonamiento. Lo que puntúa no es que acertaras, sino que el proceso fue sólido.<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> momentos en que tuviste que decidir sin poder consultar o sin tener toda la información, situaciones de urgencia en las que priorizaste entre varias opciones, o casos en los que asumiste un riesgo calculado.</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Flexibilidad y adaptación al cambio</div>
-    <div class="card-title">Campamento en el Pirineo</div>
-    <div class="card-body">En Mizar teníamos un campamento de verano previsto para sesenta chicos cerca de Madrid. Tres semanas antes nos cancelaron la reserva. De la noche a la mañana tuvimos que buscar un nuevo sitio, que encontramos en Cataluña; hicimos varios comunicados con las familias, contratamos el transporte, ampliamos a ochenta las plazas para no entrar en déficit y negociamos las tarifas con el nuevo sitio para conseguir mantener el precio. Finalmente pudimos realizar el campamento en un lugar idílico, las familias salieron encantadas y terminamos repitiendo tres años en el mismo sitio.</div>
+    <div class="card-label">Competencia 4 · máx. 18 puntos</div>
+    <div class="card-title">Flexibilidad y adaptación al cambio</div>
+    <div class="card-body">Buscan ver que no te bloqueas ante lo inesperado — que puedes cambiar de plan sin perder el objetivo. Lo que puntúa es la rapidez y la eficacia de tu adaptación, no que el cambio no te afectara.<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> proyectos en los que algo externo cambió las reglas del juego y tuviste que reaccionar, momentos en que tuviste que cambiar completamente de enfoque en mitad de un proceso, o situaciones en que las condiciones iniciales dejaron de ser válidas.</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Compromiso organizacional</div>
-    <div class="card-title">Tres meses sin cobrar en NEAT</div>
-    <div class="card-body">Llevo tres meses sin cobrar en mi actual empresa por una mala gestión de la tesorería. Me pregunto si merece la pena seguir, pero pienso en los alumnos, que no tienen la culpa, y en mi responsabilidad como parte de la empresa y sigo yendo todos los días e intento hacer mi trabajo de manera profesional, ya que de mí —en parte— dependen los alumnos que ya han pagado de forma íntegra su curso y quiero que se preparen de la mejor manera posible y no noten este bache. En esto no estoy solo y entre todos hemos dado un paso al frente, a pesar de las circunstancias. Ya empieza a verse la luz al final del túnel: ahora hay varios alumnos de la habilitación de torre planteando hacer el rating completo con nosotros.</div>
+    <div class="card-label">Competencia 5 · máx. 18 puntos</div>
+    <div class="card-title">Compromiso organizacional</div>
+    <div class="card-body">Buscan ver que vas más allá de tu contrato — que te identificas con la misión de la organización y actúas en consecuencia incluso cuando es costoso para ti. Lo que puntúa es que pusiste algo tuyo en juego por algo más grande.<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> momentos en que antepusiste el bien de la organización o de otros al tuyo propio, situaciones en que seguir adelante te supuso un coste personal real, o casos en que actuaste conforme a los valores de la organización bajo presión.</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Orientación a resultados</div>
-    <div class="card-title">Crecimiento orgánico en NEAT</div>
-    <div class="card-body">En mi departamento en NEAT gestionamos la promoción de los cursos. Al llegar, recibíamos una media de tres formularios de alumnos interesados y gastábamos unos 3.000 euros al mes en campañas de publicidad. Tras consultar los datos, vi que podíamos potenciar mucho el interés orgánico de la marca (sin pagar) optimizando la página web y contando mejor nuestra labor en redes sociales. Al final crecimos tanto de manera orgánica cuadruplicando los potenciales alumnos, que decidimos prescindir de las campañas de pago, lo que supuso un ahorro mayúsculo para la empresa.</div>
+    <div class="card-label">Competencia 6 · máx. 15 puntos</div>
+    <div class="card-title">Resiliencia</div>
+    <div class="card-body">Buscan ver que te recuperas de las adversidades sin perder la funcionalidad. Ojo: resiliencia no es aguantar en silencio — es reconocer el golpe y seguir actuando. Lo que puntúa es el momento de dificultad y lo que hiciste a pesar de él.<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> momentos en que algo que te importaba estaba amenazado y tuviste que sobreponerte para actuar, situaciones en que un proyecto parecía perdido y encontraste la manera de darle la vuelta, o períodos de adversidad sostenida en los que mantuviste el rendimiento.</div>
   </div>
 
   <div class="card">
-    <div class="card-label">Trabajo en equipo</div>
-    <div class="card-title">Compra de GTA por Indra</div>
-    <div class="card-body">Indra compró GTA en 2024. La noticia se filtró casi una semana antes al público y nos pilló con el relato a medio montar. En una reunión de emergencia, propuse una manera de llegar antes que la prensa, pero implicando a más gente: por un lado, la nota de prensa para el público la realizaría mi compañero; por otro el director comercial haría una división de los clientes en pequeñas y grandes cuentas. Yo realicé el guion para explicar la operación y explicar los puntos fuertes y entrené al equipo de ventas para llamar a las cuentas pequeñas. Por otro lado, trasladamos ese guion a un pitch para realizar en persona por parte de nuestro gerente y nuestro director comercial, que se trasladaron ese mismo día en persona a la sede de las grandes cuentas. Simultáneamente, reforzamos el mensaje con varios correos adaptando el mensaje en concreto a cada cuenta con la ayuda del comercial asignado. En un día conseguimos contener un potencial desastre y a raíz de ello, un gran cliente extendió su contrato, gracias al trabajo sincronizado de todos.</div>
+    <div class="card-label">Competencia 7 · máx. 15 puntos</div>
+    <div class="card-title">Gestión del estrés y tolerancia a la presión</div>
+    <div class="card-body">Buscan ver que bajo presión sigues siendo funcional y que tienes estrategias concretas para gestionarte. Lo que puntúa es que reconociste la señal de alerta y actuaste — no que lo ignoraste ni que te derrumbaste.<br><br>
+    <strong style="color:var(--text)">Situaciones que lo ilustran bien:</strong> épocas de carga sostenida en las que tuviste que gestionar tu rendimiento de forma activa, momentos en que sentiste que estabas al límite y tomaste una decisión para salir de ahí, o situaciones de alta presión puntual en las que mantuviste la cabeza fría.</div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════ PREGUNTAS ══ -->
 <div class="page" id="pg-preguntas">
   <div class="section-title">Preguntas</div>
-  <p class="section-sub">Preguntas de autoconocimiento, performance y miscelánea.</p>
+  <p class="section-sub">Preguntas de autoconocimiento y miscelánea. Prepara tus propias respuestas con el método STAR donde aplique.</p>
+
+  <div class="tip-box">
+    <strong>Consejo:</strong> En las preguntas de autoconocimiento no uses STAR — responde de forma directa y natural. En las de miscelánea que piden una situación concreta, sí aplica el formato.
+  </div>
 
   <div class="divider" style="margin-top:0"></div>
   <p class="card-label" style="margin-bottom:1rem">Autoconocimiento</p>
-
   <div id="qa-auto"></div>
-
-  <div class="divider"></div>
-  <p class="card-label" style="margin-bottom:1rem">Performance en la dinámica</p>
-  <div id="qa-perf"></div>
 
   <div class="divider"></div>
   <p class="card-label" style="margin-bottom:1rem">Miscelánea</p>
@@ -523,145 +429,89 @@ nav {
 <!-- ══════════════════════════════════════════ TÉCNICA ══ -->
 <div class="page" id="pg-tecnica">
   <div class="section-title">Entrevista técnica</div>
-  <p class="section-sub">Realizada por un controlador y alguien de Personas de ENAIRE. Teóricamente no puntúa, pero influye.</p>
+  <p class="section-sub">Realizada por un controlador y alguien de Personas de ENAIRE. Teóricamente no puntúa, pero influye en la decisión final.</p>
+
+  <div class="tip-box">
+    <strong>Importante:</strong> Estas preguntas tienen una carga implícita — algunas son de estrés deliberado. No entres al trapo. Responde desde lo que tú controlas y evita opinar sobre lo que no puedes cambiar.
+  </div>
+
   <div id="qa-tec"></div>
 </div>
 
-<!-- ══════════════════════════════════════════ DINÁMICA ══ -->
-<div class="page" id="pg-dinamica">
-  <div class="section-title">Dinámica de grupo</div>
-  <p class="section-sub">Dos dinámicas: escape room con tablets y caso de TCAS con presentación final.</p>
-
-  <div class="card">
-    <div class="card-label">Dinámica 1 · Escape room con tablets</div>
-    <div class="card-title">Propuesta de estrategia</div>
-    <div class="card-body">Un momento, antes de lanzarnos. Tenemos veinte minutos para conseguir resolverlo todo. Propongo que nos agrupemos con la persona de nuestra derecha para ir en grupo a resolver uno de los tres acertijos apoyado por otro compañero. Si además vamos hablando entre nosotros, nos apoyamos entre todos. ¿Qué os parece?</div>
-  </div>
-
-  <div class="card">
-    <div class="card-label">Dinámica 2 · Pérdida de separación en aproximación final y TCAS</div>
-    <div class="card-title">Si alguien dice algo erróneo al comienzo</div>
-    <div class="card-body" style="margin-bottom:0.75rem"><em style="color:var(--text-muted)">"Bueno, yo creo que aquí lo principal es que el controlador tiene que intervenir rápido y dar instrucciones claras a los pilotos para resolver la separación."</em></div>
-    <div class="card-body">Por lo que sé, el procedimiento TCAS demanda una acción directa del piloto al pedirle que ascienda o descienda, por delante de lo que le instruya el controlador. De hecho, lo mejor sería no entrar en frecuencia hasta que se haya recuperado la separación para dar nuevos niveles y vectores.</div>
-  </div>
-
-  <div class="card">
-    <div class="card-label">Dinámica 2 · Antes de presentar</div>
-    <div class="card-title">Organización de la rueda de prensa</div>
-    <div class="card-body">En cinco minutos tenemos que salir a la palestra. ¿Qué os parece esta relación? Dos serán los pilotos implicados, propongo a X e Y. Necesitaremos también un representante de AESA a cargo de la investigación, que podría ser Z. El fabricante de la aeronave podría dar detalles sobre el funcionamiento del TCAS y propongo a W. Finalmente necesitaremos al controlador, que podría ser un jefe de sala, por no exponer al compañero. También tendrá que haber un responsable de ENAIRE que asuma el error. Me propongo como responsable y a V como controlador.</div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════ MAPA ══ -->
-<div class="page" id="pg-mapa">
-  <div class="section-title">Mapa de historias</div>
-  <p class="section-sub">Si te piden un segundo ejemplo, usa la segunda opción. Los tres meses en NEAT y el Tour en la India son los comodines más versátiles.</p>
-
-  <div class="map-table-wrap">
-    <table class="map-table">
-      <thead>
-        <tr>
-          <th>Competencia</th>
-          <th>Historia principal</th>
-          <th>Segunda opción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Toma de decisiones</td><td>Tour en la India</td><td>Campamento en el Pirineo</td></tr>
-        <tr><td>Resiliencia</td><td>Tamara y el departamento de cabina</td><td>Tres meses sin cobrar en NEAT</td></tr>
-        <tr><td>Gestión del estrés</td><td>Sobrecarga en Hadock</td><td>Tres meses sin cobrar en NEAT</td></tr>
-        <tr><td>Flexibilidad y adaptación</td><td>Campamento en el Pirineo</td><td>Tour en la India</td></tr>
-        <tr><td>Compromiso organizacional</td><td>Tres meses sin cobrar en NEAT</td><td>Semana Santa (voluntariado)</td></tr>
-        <tr><td>Orientación a resultados</td><td>Crecimiento orgánico en NEAT</td><td>Tour en la India</td></tr>
-        <tr><td>Trabajo en equipo</td><td>Compra de GTA por Indra</td><td>Sobrecarga en Hadock</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────
-
-const COMPETENCIAS = ["Toma de decisiones","Resiliencia","Gestión del estrés","Flexibilidad y adaptación al cambio","Compromiso organizacional","Orientación a resultados","Trabajo en equipo"];
-
-const HISTORIAS = [
-  { title: "Tour en la India", text: "En GTA me encargaron hacer un tour en la India para conseguir más alumnos de ese mercado. Teníamos poco tiempo para lanzarlo y sabía que si esperaba se nos escaparía la ventana, así que me adelanté a reservar unas fechas y no esperé al sí definitivo. Junto a mi compañero, lanzamos la campaña con tiempo suficiente para conseguir inscripciones y llegaron a tiempo los billetes y visados de los que iban a viajar. Fruto de ese tour salieron varios cursos con alumnos indios." },
-  { title: "Tamara y el departamento de cabina", text: "En GTA se estaban planteando cerrar la división de entrenamiento para tripulantes de cabina de pasajeros. Eso significaba que Tamara, cerca de los cincuenta años, se quedaría sin trabajo. Yo me sentaba frente a ella y siempre la veía sonriente. Eso me afectó, así que pensamos una solución para darle la vuelta a la situación: mi compañero y yo propusimos conseguir fondos a base de alquilar la maqueta para rodajes, con lo que conseguimos una línea de negocio nueva y reinvertir el beneficio en una campaña más ambiciosa para conseguir alumnos. Nos lo aceptaron y nos dieron unos meses de prueba. A raíz de eso, se mantuvo el departamento y creció con una nueva incorporación al equipo. Conseguimos que Tamara no perdiera el trabajo." },
-  { title: "Sobrecarga en Hadock", text: "Entré en Hadock poco antes del COVID, momento que aceleró la digitalización de muchas empresas, lo que se tradujo en cada vez más clientes; y no se escaló el equipo de manera proporcionada. En los últimos meses en la empresa llevaba más clientes de los que podía gestionar en mi horario habitual, lo que me hacía alargar mi jornada entre dos y cuatro horas para poder atender mis obligaciones. Empezaba a haber cierto cansancio entre los compañeros que se traducía en quejas. Decidí transformarlo en acción y pedí ayuda a mi jefe. De esta manera, pusimos en marcha reuniones semanales del equipo para ver cómo podíamos apoyarnos en las distintas cargas y así distribuir mejor el peso. En esas reuniones se hizo evidente que estábamos todos al límite y que necesitábamos incorporar más gente de manera urgente. Finalmente dejé mi puesto tras un tiempo en el que se contrataron a tres personas y pudieron asumir la carga." },
-  { title: "Campamento en el Pirineo", text: "En Mizar teníamos un campamento de verano previsto para sesenta chicos cerca de Madrid. Tres semanas antes nos cancelaron la reserva. De la noche a la mañana tuvimos que buscar un nuevo sitio, que encontramos en Cataluña; hicimos varios comunicados con las familias, contratamos el transporte, ampliamos a ochenta las plazas para no entrar en déficit y negociamos las tarifas con el nuevo sitio para conseguir mantener el precio. Finalmente pudimos realizar el campamento en un lugar idílico, las familias salieron encantadas y terminamos repitiendo tres años en el mismo sitio." },
-  { title: "Tres meses sin cobrar en NEAT", text: "Llevo tres meses sin cobrar en mi actual empresa por una mala gestión de la tesorería. Me pregunto si merece la pena seguir, pero pienso en los alumnos, que no tienen la culpa, y en mi responsabilidad como parte de la empresa y sigo yendo todos los días e intento hacer mi trabajo de manera profesional, ya que de mí —en parte— dependen los alumnos que ya han pagado de forma íntegra su curso y quiero que se preparen de la mejor manera posible y no noten este bache. En esto no estoy solo y entre todos hemos dado un paso al frente, a pesar de las circunstancias. Ya empieza a verse la luz al final del túnel: ahora hay varios alumnos de la habilitación de torre planteando hacer el rating completo con nosotros." },
-  { title: "Crecimiento orgánico en NEAT", text: "En mi departamento en NEAT gestionamos la promoción de los cursos. Al llegar, recibíamos una media de tres formularios de alumnos interesados y gastábamos unos 3.000 euros al mes en campañas de publicidad. Tras consultar los datos, vi que podíamos potenciar mucho el interés orgánico de la marca (sin pagar) optimizando la página web y contando mejor nuestra labor en redes sociales. Al final crecimos tanto de manera orgánica cuadruplicando los potenciales alumnos, que decidimos prescindir de las campañas de pago, lo que supuso un ahorro mayúsculo para la empresa." },
-  { title: "Compra de GTA por Indra", text: "Indra compró GTA en 2024. La noticia se filtró casi una semana antes al público y nos pilló con el relato a medio montar. En una reunión de emergencia, propuse una manera de llegar antes que la prensa, pero implicando a más gente: por un lado, la nota de prensa para el público la realizaría mi compañero; por otro el director comercial haría una división de los clientes en pequeñas y grandes cuentas. Yo realicé el guion para explicar la operación y explicar los puntos fuertes y entrené al equipo de ventas para llamar a las cuentas pequeñas. Por otro lado, trasladamos ese guion a un pitch para realizar en persona por parte de nuestro gerente y nuestro director comercial, que se trasladaron ese mismo día en persona a la sede de las grandes cuentas. Simultáneamente, reforzamos el mensaje con varios correos adaptando el mensaje en concreto a cada cuenta con la ayuda del comercial asignado. En un día conseguimos contener un potencial desastre y a raíz de ello, un gran cliente extendió su contrato, gracias al trabajo sincronizado de todos." }
+const COMPETENCIAS = [
+  "Trabajo en equipo",
+  "Orientación a resultados",
+  "Toma de decisiones",
+  "Flexibilidad y adaptación al cambio",
+  "Compromiso organizacional",
+  "Resiliencia",
+  "Gestión del estrés y tolerancia a la presión"
 ];
 
 const PREGUNTAS = [
-  {text:"Cuéntame una situación en la que hayas tenido que tomar una decisión importante sin contar con toda la información que hubieras querido.",comp:0,hist:0},
-  {text:"¿Recuerdas algún momento en que hayas tenido que actuar rápido sin poder consultar con otros?",comp:0,hist:0},
-  {text:"¿Alguna vez has tomado una decisión arriesgada en el trabajo? ¿Qué pasó?",comp:0,hist:0},
-  {text:"Cuéntame una situación en la que hayas tenido que priorizar entre varias opciones bajo presión de tiempo.",comp:0,hist:0},
-  {text:"Cuéntame una situación en la que hayas tenido que sobreponerte a algo que te afectó personalmente en el trabajo.",comp:1,hist:1},
-  {text:"¿Recuerdas algún momento en que un proyecto o situación parecía perdido y conseguiste darle la vuelta?",comp:1,hist:1},
-  {text:"¿Ha habido alguna vez en que las circunstancias externas amenazaran algo que te importaba y tuvieras que actuar?",comp:1,hist:1},
-  {text:"Cuéntame una situación en la que hayas tenido que mantener el rendimiento a pesar de una adversidad.",comp:1,hist:1},
-  {text:"Cuéntame una época en la que hayas trabajado bajo una presión sostenida durante un período largo de tiempo.",comp:2,hist:2},
-  {text:"¿Cómo gestionas los momentos en que tienes más trabajo del que puedes asumir?",comp:2,hist:2},
-  {text:"¿Recuerdas alguna situación en la que el entorno laboral fuera especialmente exigente? ¿Cómo lo manejaste?",comp:2,hist:2},
-  {text:"Cuéntame una situación en la que hayas sentido que estabas al límite y qué hiciste.",comp:2,hist:2},
-  {text:"Cuéntame una situación en la que un cambio inesperado haya trastocado un plan en el que estabas trabajando.",comp:3,hist:3},
-  {text:"¿Recuerdas algún momento en que hayas tenido que adaptarte rápidamente a una situación que no esperabas?",comp:3,hist:3},
-  {text:"¿Alguna vez has tenido que cambiar completamente de enfoque en mitad de un proyecto?",comp:3,hist:3},
-  {text:"Cuéntame una situación en la que algo externo haya cambiado las reglas del juego y hayas tenido que reaccionar.",comp:3,hist:3},
-  {text:"Cuéntame una situación en la que hayas antepuesto el bien de la organización o de otros al tuyo propio.",comp:4,hist:4},
-  {text:"¿Recuerdas algún momento en que hayas tenido que demostrar tu compromiso con una organización en circunstancias difíciles?",comp:4,hist:4},
-  {text:"¿Ha habido alguna vez en que seguir adelante con algo te haya supuesto un coste personal importante?",comp:4,hist:4},
-  {text:"Cuéntame una situación en la que tus valores personales y los de la organización hayan estado alineados en un momento crítico.",comp:4,hist:4},
-  {text:"Cuéntame una situación en la que hayas conseguido un resultado concreto y medible gracias a tu iniciativa.",comp:5,hist:5},
-  {text:"¿Recuerdas algún momento en que hayas identificado una oportunidad de mejora y la hayas llevado a cabo?",comp:5,hist:5},
-  {text:"¿Alguna vez has conseguido un objetivo con menos recursos de los que tenías inicialmente?",comp:5,hist:5},
-  {text:"Cuéntame una situación en la que hayas mejorado un proceso o resultado de manera significativa.",comp:5,hist:5},
-  {text:"Cuéntame una situación en la que hayas trabajado en equipo bajo presión para conseguir un objetivo común.",comp:6,hist:6},
-  {text:"¿Recuerdas algún momento en que tu aportación haya sido clave para que el equipo funcionara mejor?",comp:6,hist:6},
-  {text:"¿Alguna vez has tenido que coordinar a varias personas con roles distintos para resolver un problema urgente?",comp:6,hist:6},
-  {text:"Cuéntame una situación en la que hayas organizado o estructurado el trabajo de un equipo en una situación de crisis.",comp:6,hist:6}
+  {text:"Cuéntame una situación en la que hayas tenido que tomar una decisión importante sin contar con toda la información que hubieras querido.",comp:2},
+  {text:"¿Recuerdas algún momento en que hayas tenido que actuar rápido sin poder consultar con otros?",comp:2},
+  {text:"¿Alguna vez has tomado una decisión arriesgada en el trabajo? ¿Qué pasó?",comp:2},
+  {text:"Cuéntame una situación en la que hayas tenido que priorizar entre varias opciones bajo presión de tiempo.",comp:2},
+  {text:"Cuéntame una situación en la que hayas tenido que sobreponerte a algo que te afectó personalmente en el trabajo.",comp:5},
+  {text:"¿Recuerdas algún momento en que un proyecto o situación parecía perdido y conseguiste darle la vuelta?",comp:5},
+  {text:"¿Ha habido alguna vez en que las circunstancias externas amenazaran algo que te importaba y tuvieras que actuar?",comp:5},
+  {text:"Cuéntame una situación en la que hayas tenido que mantener el rendimiento a pesar de una adversidad.",comp:5},
+  {text:"Cuéntame una época en la que hayas trabajado bajo una presión sostenida durante un período largo de tiempo.",comp:6},
+  {text:"¿Cómo gestionas los momentos en que tienes más trabajo del que puedes asumir?",comp:6},
+  {text:"¿Recuerdas alguna situación en la que el entorno laboral fuera especialmente exigente? ¿Cómo lo manejaste?",comp:6},
+  {text:"Cuéntame una situación en la que hayas sentido que estabas al límite y qué hiciste.",comp:6},
+  {text:"Cuéntame una situación en la que un cambio inesperado haya trastocado un plan en el que estabas trabajando.",comp:3},
+  {text:"¿Recuerdas algún momento en que hayas tenido que adaptarte rápidamente a una situación que no esperabas?",comp:3},
+  {text:"¿Alguna vez has tenido que cambiar completamente de enfoque en mitad de un proyecto?",comp:3},
+  {text:"Cuéntame una situación en la que algo externo haya cambiado las reglas del juego y hayas tenido que reaccionar.",comp:3},
+  {text:"Cuéntame una situación en la que hayas antepuesto el bien de la organización o de otros al tuyo propio.",comp:4},
+  {text:"¿Recuerdas algún momento en que hayas tenido que demostrar tu compromiso con una organización en circunstancias difíciles?",comp:4},
+  {text:"¿Ha habido alguna vez en que seguir adelante con algo te haya supuesto un coste personal importante?",comp:4},
+  {text:"Cuéntame una situación en la que tus valores personales y los de la organización hayan estado alineados en un momento crítico.",comp:4},
+  {text:"Cuéntame una situación en la que hayas conseguido un resultado concreto y medible gracias a tu iniciativa.",comp:1},
+  {text:"¿Recuerdas algún momento en que hayas identificado una oportunidad de mejora y la hayas llevado a cabo?",comp:1},
+  {text:"¿Alguna vez has conseguido un objetivo con menos recursos de los que tenías inicialmente?",comp:1},
+  {text:"Cuéntame una situación en la que hayas mejorado un proceso o resultado de manera significativa.",comp:1},
+  {text:"Cuéntame una situación en la que hayas trabajado en equipo bajo presión para conseguir un objetivo común.",comp:0},
+  {text:"¿Recuerdas algún momento en que tu aportación haya sido clave para que el equipo funcionara mejor?",comp:0},
+  {text:"¿Alguna vez has tenido que coordinar a varias personas con roles distintos para resolver un problema urgente?",comp:0},
+  {text:"Cuéntame una situación en la que hayas organizado o estructurado el trabajo de un equipo en una situación de crisis.",comp:0}
 ];
 
 const QA_AUTO = [
-  {q:"¿Cuántos años más seguirías intentándolo?", a:"De momento, no veo inconveniente en seguir intentándolo cada año. Tengo otras prioridades en la vida más allá del trabajo, pero laboralmente esta es la opción que más me atrae y prueba de ello es que cuatro años después, aquí sigo."},
-  {q:"¿Dónde te ves en diez años?", a:"En diez años me veo en la torre de control de Barajas, como supervisor e instructor de nuevos alumnos que vengan a habilitarse en mi destino, formando a las nuevas generaciones de controladores."},
-  {q:"¿Asumirías más carga de trabajo?", a:"He trabajado en entornos con alta carga de trabajo bajo presión. No tengo problemas en asumir más carga de trabajo."},
-  {q:"¿Buscarías un puesto de relevancia en ENAIRE?", a:"Si la empresa lo necesita, no tengo inconveniente en asumir un puesto de relevancia. No obstante, trataría de mantener mi puesto como controlador, que es a lo que me quiero dedicar."},
-  {q:"Puntos débiles", a:"Me cuesta ponerme a realizar una acción cuando estoy cansado. En esos momentos donde no veo una compensación directa, intento tirar de motivaciones más profundas. Cuando algo me da pereza, me ayuda buscar esas motivaciones como qué ejemplo quiero dar, mi familia, qué quiero ser el día de mañana o la satisfacción del trabajo bien hecho."},
-  {q:"Puntos fuertes", a:"Soy resolutivo. Si se necesita algo, busco la manera de conseguirlo. No me espero a que venga alguien a explicarme con detalle cómo realizar cada paso; me busco los recursos, pido consejo, aprendo a manejar nuevas herramientas, implico a otras personas hasta conseguir lo que me he propuesto."},
-  {q:"Un día en mi vida", a:"Me levanto pronto y me reservo un tiempo de oración personal. Entro a trabajar a las nueve, veo mi agenda, la bandeja de correo y las cosas pendientes de ayer, me hago un listado de prioridades y las voy abordando. Como en el trabajo y hablo de manera distendida con los colegas, los instructores y los alumnos. A las cinco vuelvo a casa y hago un rato de ejercicio en bici, me preparo las tutorías de ese día con los padres de los chicos de la asociación o la charla que vaya a dar ese día. Depende del día, quedo con amigos, familia para tomar algo o jugar un partido de pádel. Ceno con mis compañeros de piso, solemos reservar un tiempo luego para hablar de nuestro día, luego leo algo, desconecto de pantallas y me voy a dormir antes de las once."},
-  {q:"¿Qué haces para desestresarte y qué planes haces para descansar?", a:"Me gusta quedar con mi hermana para hablar sobre algún tema que pueda estresarme. Aprovechamos para ponernos al día y que ella me cuente. Esto también lo hago con amigos. Considero que lo primero es contar qué te estresa para poder abordarlo. Además, descanso haciendo deporte y paseando, siempre intento que sea con amigos. Cuando quiero estar solo, prefiero que sea en público, tomando un té o un café con un buen libro."}
-];
-
-const QA_PERF = [
-  {q:"¿Quién ha sido el peor en la dinámica?", a:"X se ha ido varias veces por las ramas y nos ha distraído del objetivo de la dinámica. Aunque valoro su conocimiento, en este contexto no teníamos tiempo para valorarlo."},
-  {q:"¿Cómo valorarías tu propia performance en la dinámica?", a:"Estoy contento con mi actuación en la dinámica. A pesar de las restricciones de tiempo considero que he demostrado mis capacidades. Como equipo, hemos defendido nuestra postura de forma sólida y concretamente, he dividido la tarea para aprovechar mejor los recursos y llegar de manera más eficiente al objetivo."}
+  {q:"¿Cuántos años más seguirías intentándolo si no apruebas esta vez?"},
+  {q:"¿Dónde te ves en diez años?"},
+  {q:"¿Asumirías más carga de trabajo si la empresa lo necesita?"},
+  {q:"¿Buscarías un puesto de relevancia en ENAIRE?"},
+  {q:"¿Cuáles son tus puntos débiles?"},
+  {q:"¿Cuáles son tus puntos fuertes?"},
+  {q:"¿Cómo es un día normal en tu vida?"},
+  {q:"¿Qué haces para desestresarte? ¿Qué planes haces para descansar?"}
 ];
 
 const QA_MISC = [
-  {q:"¿Ha habido alguna vez en cualquier trabajo en que algo saliera mal por una decisión tuya o por algo que dejaste de hacer?", a:"En GTA, tenía que hacer promoción de un curso para pilotos extranjeros. Tenía una base de datos amplia. Hice los materiales pero se me olvidó programar la campaña. Un mes antes de la fecha programada, teníamos muy pocos alumnos y nos planteamos cancelarlo. Al ir a ver las estadísticas, me di cuenta de mi error y lo comuniqué al director comercial. Me puse de acuerdo con él para lanzar una oferta de last minute junto a un servicio de asesoría para obtener el visado, por lo cercano de las fechas. De esta manera, conseguimos salvar el curso y desde ese momento verifico que se van cumpliendo todos los pasos del proceso."},
-  {q:"¿Cuál ha sido el día más triste de tu vida?", a:"El día más triste de mi vida fue el día que le dio un infarto a mi padre. Somos de Granada y él estaba en casa cuando ocurrió. Mi madre se dio cuenta en seguida y mi hermano los llevó al hospital. Yo en ese momento estaba solo en Madrid y tardaron el mismo tiempo en estabilizar a mi padre que el tiempo que me llevó viajar a casa. Fueron unos momentos difíciles de incertidumbre en los que no sabía si volvería a verlo con vida. Al final, mi padre salió adelante."},
-  {q:"¿Por qué cambias tanto de trabajo?", a:"Durante mi carrera como comunicador, he ido definiendo mi perfil. Comencé como periodista en una redacción y me di cuenta de que no estaba explotando todo mi potencial, y así aterricé en una agencia de comunicación. Una vez que gané en experiencia me pasé del lado de cliente, a la comunicación corporativa. Ahora que he descubierto el control aéreo, el último cambio fue claro: poder trabajar en una escuela de controladores. En cada experiencia he ido aprendiendo y mejorando y me han ido conformando cómo soy hoy."},
-  {q:"¿Cuál es tu mayor miedo?", a:"Mi mayor miedo es no tener una meta clara en la vida. No hablo solo de lo profesional, sino de perder el motivo por el que me levanto cada día."},
-  {q:"¿Alguna vez te has enfrentado con un jefe?", a:"En GTA, durante un tiempo estuve recopilando métricas sobre una cuenta de Instagram del equipo de Colombia. Además de dar una imagen poco profesional, no estábamos llegando al público objetivo. Propuse cerrarla para integrar su comunicación en la matriz. Mi jefe me apoyó en un principio, pero tras oír las quejas del equipo de Colombia decidió que era más importante que ellos no sintieran que perdían el control sobre esa parte o que se diluyera su seña de identidad. Volví a defender mi postura, pero mi jefe no dio su brazo a torcer. Finalmente hicimos un servicio de asesoría para mejorar las publicaciones y la cuenta se mantuvo abierta."},
-  {q:"Cuéntame de alguna situación en la que hayas tenido que mantener una postura contraria al grupo", a:"En la asociación, durante años realizábamos tres actividades en Semana Santa, divididas por edad. En los últimos años perdimos apoyos, pero las familias seguían demandando sacar adelante las tres actividades, aunque faltasen monitores o los que asistieran no fuesen conocidos. Como coordinador de las actividades, tuve que plantarme y explicar que eso no cuadraba con nuestros valores. Finalmente sacamos adelante dos de las tres actividades, con el compromiso por parte de las familias de que ellos realizarían y sacarían adelante con sus propios recursos la actividad de los más pequeños. De esa manera, si no salía adelante, no era por nuestra culpa."}
+  {q:"¿Ha habido alguna vez en cualquier trabajo en que algo saliera mal por una decisión tuya o por algo que dejaste de hacer?"},
+  {q:"¿Cuál ha sido el día más triste de tu vida?"},
+  {q:"¿Por qué cambias tanto de trabajo?"},
+  {q:"¿Cuál es tu mayor miedo?"},
+  {q:"¿Alguna vez te has enfrentado con un jefe?"},
+  {q:"Cuéntame de alguna situación en la que hayas tenido que mantener una postura contraria al grupo."}
 ];
 
 const QA_TEC = [
-  {q:"¿Por qué quieres ser controlador aéreo?", a:"Un amigo con el que estudié la carrera me habló del control allá por 2020. Le escuché mientras me contaba cómo era la profesión y las pruebas, pero no lo vi como algo para mí. Él me sugirió que tenía las cualidades para serlo. Un par de años después comencé a trabajar en GTA. Ahí, al entrar en contacto con el mundo de la aviación, me empecé a plantear una dedicación más directa. Una compañera de trabajo tenía la licencia de torre e iba a por su tercer intento de la convocatoria. Me explicó con más detalle todo lo relacionado con este mundo, visité la escuela de Senasa, empecé a consumir contenido de control aéreo, a escuchar las frecuencias, etc. y decidí presentarme con un margen de dos meses. A pesar de la nula preparación, llegué a la última fase y disfruté de todo el proceso. Para entonces ya tenía claro que esto es a lo que quería dedicarme. Desde entonces lo he intentado tres veces más, hasta el día de hoy. Por el camino, me surgió la opción de trabajar en una escuela de controladores, en la que llevo cerca de dos años y pienso aprovechar cada oportunidad de acercarme más a este objetivo."},
-  {q:"¿Cuántas veces más seguirás intentando entrar?", a:"De momento, no veo inconveniente en seguir intentándolo cada año. Tengo otras prioridades en la vida más allá del trabajo, pero laboralmente esta es la opción que más me atrae y prueba de ello es que cuatro años después, aquí sigo."},
-  {q:"¿A qué destino quieres ir? ¿Y si no te da la nota?", a:"Entre torre y centro de control, prefiero torre en un principio. Mi destino preferido sería la torre de control de Barajas, aunque la de Palma también me atrae. Tuve la oportunidad de visitarla hace un año y me enamoró. También visitamos el centro de control y aunque me gustó, preferiría empezar mi carrera en la torre. En el caso de que no me dé la nota, estoy dispuesto a ir a cualquier sitio. No tengo nada que me ate especialmente aquí."},
-  {q:"¿Estás dispuesto a trabajar a turnos? ¿Sabes que te perderás fechas y momentos importantes?", a:"Aunque no he trabajado a turnos de manera habitual, sí he tenido momentos en los que trabajar de noche de manera puntual y no he tenido problema en cambiar mi horario. Además, llevo doce años organizando actividades con jóvenes compaginándolo con todo lo demás. Campamentos, tutorías, seminarios, talleres de estudio, deportes, etc. Eso requiere flexibilidad horaria constante, perderme algunos momentos importantes y sacrificar tiempo personal de manera habitual."},
-  {q:"¿Qué pasa si estás en una torre monoposición? ¿Sabrías atender una emergencia cuando estás solo y llevado por la monotonía?", a:"Entiendo que estar solo y con poco tráfico no es lo mismo que estar con mucho tráfico en una torre con mucho personal, pero eso no tiene por qué llevarme al aburrimiento o la monotonía. Antes de que llegue una emergencia, si ya veo que me encuentro lento, lo comunicaría al responsable para ver qué hacer, porque no me puedo permitir no estar al cien por cien cuando llegue un momento crítico como una emergencia."},
-  {q:"¿Quieres saber cuáles son las condiciones? ¿Lo haces por dinero?", a:"Ahora que estoy más metido en este mundillo, sí conozco las condiciones laborales. Al principio, cuando me presenté, solo tenía una idea aproximada. Lo que más me atrae es la seguridad aparejada al puesto de trabajo y eso es un valor para esta profesión, ya que me permite poder centrarme completamente en mi trabajo sin distracciones externas."},
-  {q:"¿Qué opinas de que tu futuro compañero pueda ser mayor que tú y cobre casi el doble haciendo la mitad?", a:"Yo solo puedo responder por mí. En mi caso estoy optando a las condiciones actuales, no al convenio anterior. En cuanto a mi relación con ese compañero, yo intentaré que el día a día sea cordial. Por mi parte no va a haber ningún rencor. Lo importante es que haya una confianza plena entre colegas."},
-  {q:"Tú te dedicas a la comunicación. ¿Sabes que ENAIRE tiene puestos más adecuados para tu formación? ¿No consideras presentarte a ellos?", a:"En mis años como comunicador, he ido tocando distintos palos desde el periodismo, pasando por agencias a comunicación corporativa. En los últimos años, me estoy dedicando a la aviación y específicamente al control. Creo que la comunicación es la herramienta principal del controlador y a eso es a lo que quiero dedicarme ahora. De momento no considero esa posibilidad ni ninguna otra."}
+  {q:"¿Por qué quieres ser controlador aéreo?"},
+  {q:"¿Cuántas veces más seguirás intentando entrar?"},
+  {q:"¿A qué destino quieres ir? ¿Y si no te da la nota?"},
+  {q:"¿Estás dispuesto a trabajar a turnos? ¿Sabes que te perderás fechas y momentos importantes?"},
+  {q:"¿Qué pasa si estás en una torre monoposición? ¿Sabrías atender una emergencia cuando estás solo y llevado por la monotonía?"},
+  {q:"¿Quieres saber cuáles son las condiciones? ¿Lo haces por dinero?"},
+  {q:"¿Qué opinas de que tu futuro compañero pueda ser mayor que tú y cobre casi el doble haciendo la mitad?"},
+  {q:"Tú has estudiado _______. ¿Sabes que ENAIRE tiene puestos más adecuados para tu formación? ¿No consideras presentarte a ellos?"}
 ];
 
-// ── BUILD QA SECTIONS ─────────────────────────────────────────────────────
+// Build QA sections (no answers)
 function buildQA(items, containerId) {
   const el = document.getElementById(containerId);
   items.forEach((item, i) => {
@@ -674,7 +524,7 @@ function buildQA(items, containerId) {
             <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="qa-a" id="${id}">${item.a}</div>
+        <div class="qa-a" id="${id}">Escribe aquí tu respuesta.</div>
       </div>`;
   });
 }
@@ -686,13 +536,12 @@ function toggleQA(id, btn) {
 }
 
 buildQA(QA_AUTO, 'qa-auto');
-buildQA(QA_PERF, 'qa-perf');
 buildQA(QA_MISC, 'qa-misc');
 buildQA(QA_TEC, 'qa-tec');
 
-// ── QUIZ LOGIC ────────────────────────────────────────────────────────────
+// Quiz logic
 let quizMode = 10, queue = [], current = 0, results = [];
-let compDone = false, histDone = false;
+let answered = false;
 
 function selectMode(m, el) {
   quizMode = m;
@@ -718,179 +567,100 @@ function startQuiz() {
 }
 
 function showQuestion() {
-  compDone = false; histDone = false;
+  answered = false;
   const q = queue[current];
   const tot = queue.length;
 
   document.getElementById('q-counter').textContent = String(current+1).padStart(2,'0')+' / '+String(tot).padStart(2,'0');
   document.getElementById('q-progress').style.width = ((current/tot)*100)+'%';
   document.getElementById('q-text').textContent = q.text;
-
-  document.getElementById('step-comp').style.display = 'none';
-  document.getElementById('step-hist').style.display = 'block';
   document.getElementById('step-next').style.display = 'none';
 
   const fb = document.getElementById('q-feedback');
   fb.className = 'feedback'; fb.textContent = '';
 
-  // Competencia options
   const cg = document.getElementById('comp-options'); cg.innerHTML = '';
   shuffle([0,1,2,3,4,5,6]).forEach(idx => {
-    const btn = makeOptionBtn(COMPETENCIAS[idx], idx, false);
-    btn.querySelector('.option-main').addEventListener('click', () => handleComp(idx, btn, q));
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.dataset.idx = idx;
+    btn.innerHTML = `<span class="option-dot"></span>${COMPETENCIAS[idx]}`;
+    btn.onclick = () => handleAnswer(idx, btn, q);
     cg.appendChild(btn);
   });
-
-  // Historia options
-  const hg = document.getElementById('hist-options'); hg.innerHTML = '';
-  shuffle([0,1,2,3,4,5,6]).forEach(idx => {
-    const btn = makeOptionBtn(HISTORIAS[idx].title, idx, true, HISTORIAS[idx].text);
-    btn.querySelector('.option-main').addEventListener('click', () => handleHist(idx, btn, q));
-    hg.appendChild(btn);
-  });
 }
 
-function makeOptionBtn(label, idx, withExpand, storyText) {
-  const btn = document.createElement('div');
-  btn.className = 'option-btn';
-  btn.dataset.idx = idx;
+function handleAnswer(idx, btn, q) {
+  if (answered) return;
+  answered = true;
 
-  const main = document.createElement('div');
-  main.className = 'option-main';
-  main.innerHTML = `<span class="option-dot"></span><span class="option-name">${label}</span>`;
-  btn.appendChild(main);
-
-  if (withExpand && storyText) {
-    const expandId = 'exp_' + Math.random().toString(36).slice(2);
-    const expandBtn = document.createElement('button');
-    expandBtn.className = 'expand-btn';
-    expandBtn.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Ver historia</span>`;
-
-    const expandContent = document.createElement('div');
-    expandContent.className = 'story-expand';
-    expandContent.id = expandId;
-    expandContent.textContent = storyText;
-
-    expandBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = expandContent.classList.toggle('open');
-      expandBtn.classList.toggle('open', open);
-      expandBtn.querySelector('span').textContent = open ? 'Ocultar historia' : 'Ver historia';
-    });
-
-    btn.appendChild(expandBtn);
-    btn.appendChild(expandContent);
-  }
-
-  return btn;
-}
-
-function handleHist(idx, btn, q) {
-  if (histDone) return;
-  histDone = true;
-
-  document.querySelectorAll('#hist-options .option-btn').forEach(b => {
-    const bi = parseInt(b.dataset.idx);
-    b.querySelector('.option-main').style.pointerEvents = 'none';
-    if (bi === q.hist) {
-      b.classList.add('correct');
-      b.querySelector('.option-name').classList.add('correct-color');
-    } else if (b === btn) {
-      b.classList.add('wrong');
-      b.querySelector('.option-name').classList.add('wrong-color');
-    }
-  });
-
-  document.getElementById('step-comp').style.display = 'block';
-  document.getElementById('step-comp').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function handleComp(idx, btn, q) {
-  if (compDone) return;
-  compDone = true;
+  const correct = idx === q.comp;
 
   document.querySelectorAll('#comp-options .option-btn').forEach(b => {
+    b.disabled = true;
     const bi = parseInt(b.dataset.idx);
-    b.querySelector('.option-main').style.pointerEvents = 'none';
-    if (bi === q.comp) {
-      b.classList.add('correct');
-      b.querySelector('.option-name').classList.add('correct-color');
-    } else if (b === btn) {
-      b.classList.add('wrong');
-      b.querySelector('.option-name').classList.add('wrong-color');
-    }
+    if (bi === q.comp) b.classList.add('correct');
+    else if (b === btn && !correct) b.classList.add('wrong');
   });
 
-  const histCorrect = document.querySelector('#hist-options .option-btn.wrong') === null;
-  const compCorrect = idx === q.comp;
-  const pts = (compCorrect?1:0)+(histCorrect?1:0);
-  const score = pts===2?3:pts===1?2:1;
-
-  results.push({q, compCorrect, histCorrect, score});
+  results.push({q, correct});
 
   const fb = document.getElementById('q-feedback');
-  if (score===3) {
-    fb.className='feedback perfect show';
-    fb.innerHTML='<strong>3/3 · Perfecto.</strong> Historia y competencia correctas.';
-  } else if (score===2) {
-    fb.className='feedback partial show';
-    const msg = histCorrect
-      ? `La competencia correcta era <strong>${COMPETENCIAS[q.comp]}</strong>.`
-      : `La historia correcta era <strong>${HISTORIAS[q.hist].title}</strong>.`;
-    fb.innerHTML=`<strong>2/3 · Casi.</strong> ${msg}`;
+  if (correct) {
+    fb.className = 'feedback correct-fb show';
+    fb.innerHTML = '<strong>Correcto.</strong> Bien identificada.';
   } else {
-    fb.className='feedback miss show';
-    fb.innerHTML=`<strong>1/3 · A repasar.</strong> Historia: <strong>${HISTORIAS[q.hist].title}</strong> · Competencia: <strong>${COMPETENCIAS[q.comp]}</strong>.`;
+    fb.className = 'feedback wrong-fb show';
+    fb.innerHTML = `<strong>Incorrecto.</strong> Era <strong>${COMPETENCIAS[q.comp]}</strong>.`;
   }
 
-  document.getElementById('step-next').style.display='block';
+  document.getElementById('step-next').style.display = 'block';
   document.getElementById('step-next').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function nextQuestion() {
-  if (!histDone) results.push({q:queue[current],compCorrect:false,histCorrect:false,score:1,skipped:true});
+  if (!answered) results.push({q:queue[current], correct:false, skipped:true});
   current++;
-  if (current>=queue.length) { showResults(); }
+  if (current >= queue.length) showResults();
   else { showQuestion(); window.scrollTo({top:0,behavior:'smooth'}); }
 }
 
 function showResults() {
-  const c3=results.filter(r=>r.score===3).length;
-  const c2=results.filter(r=>r.score===2).length;
-  const c1=results.filter(r=>r.score<=1).length;
+  const ok = results.filter(r => r.correct).length;
+  const ko = results.length - ok;
 
-  document.getElementById('cnt3').textContent=c3;
-  document.getElementById('cnt2').textContent=c2;
-  document.getElementById('cnt1').textContent=c1;
-  document.getElementById('res-sub').textContent=`${results.length} preguntas · ${c3} perfectas · ${c2} casi · ${c1} a repasar`;
+  document.getElementById('cnt-ok').textContent = ok;
+  document.getElementById('cnt-ko').textContent = ko;
+  document.getElementById('res-sub').textContent = `${results.length} preguntas · ${ok} correctas · ${ko} a repasar`;
 
-  const list=document.getElementById('res-list'); list.innerHTML='';
-  results.forEach(r=>{
-    const item=document.createElement('div'); item.className='result-item';
-    const badge=document.createElement('span'); badge.className=`result-badge badge-${r.score}`; badge.textContent=r.score+'/3';
-    const info=document.createElement('div'); info.className='result-q';
-    info.innerHTML=`<strong>${COMPETENCIAS[r.q.comp]} · ${HISTORIAS[r.q.hist].title}</strong>${r.q.text}`;
+  const list = document.getElementById('res-list'); list.innerHTML = '';
+  results.forEach(r => {
+    const item = document.createElement('div'); item.className = 'result-item';
+    const badge = document.createElement('span');
+    badge.className = `result-badge ${r.correct ? 'badge-ok' : 'badge-ko'}`;
+    badge.textContent = r.correct ? '✓' : '✗';
+    const info = document.createElement('div'); info.className = 'result-q';
+    info.innerHTML = `<strong>${COMPETENCIAS[r.q.comp]}</strong>${r.q.text}`;
     item.appendChild(badge); item.appendChild(info); list.appendChild(item);
   });
 
-  document.getElementById('q-progress').style.width='100%';
+  document.getElementById('q-progress').style.width = '100%';
   showQuizScreen('qs-results');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ── NAV ──────────────────────────────────────────────────────────────────
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach((t,i)=>{
-    const pages=['pg-quiz','pg-historias','pg-preguntas','pg-tecnica','pg-dinamica','pg-mapa'];
-    t.classList.toggle('active', pages[i]===id);
+  const pages = ['pg-quiz','pg-competencias','pg-preguntas','pg-tecnica'];
+  document.querySelectorAll('.nav-tab').forEach((t,i) => {
+    t.classList.toggle('active', pages[i] === id);
   });
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function showQuizScreen(id) {
-  document.querySelectorAll('.quiz-screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.quiz-screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 </script>
